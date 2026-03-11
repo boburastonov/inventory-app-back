@@ -1,15 +1,14 @@
-// src/app.ts
-import "./config/env.js";
-import express from "express";
-import session from "express-session";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { createServer } from "http";
+import express from "express";
 import { Server } from "socket.io";
+import { createServer } from "http";
+import session from "express-session";
 
-import passport from "./config/passport.js";
+import "./config/env.js";
 import { env } from "./config/env.js";
+import passport from "./config/passport.js";
 
 import authRoutes from "./routes/auth.routes.js";
 
@@ -24,30 +23,30 @@ const app = express();
 const httpServer = createServer(app);
 
 export const io = new Server(httpServer, {
-    cors: { origin: env.CLIENT_URL, credentials: true },
+  cors: { origin: env.CLIENT_URL, credentials: true },
 });
 
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(
-    cors({
-        origin: env.CLIENT_URL,
-        credentials: true, // cookie uchun muhim
-    }),
+  cors({
+    origin: env.CLIENT_URL,
+    credentials: true, 
+  }),
 );
 app.use(express.json());
 
 app.use(
-    session({
-        secret: env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 kun
-        },
-    }),
+  session({
+    secret: env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    },
+  }),
 );
 
 app.use(passport.initialize());
@@ -62,17 +61,17 @@ app.use("/api/auth", authRoutes);
 // app.use("/api/users",       userRoutes)
 
 app.use(
-    (
-        err: any,
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction,
-    ) => {
-        console.error(err);
-        res.status(500).json({ message: "serverError" });
-    },
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    console.error(err);
+    res.status(500).json({ message: "serverError" });
+  },
 );
 
 httpServer.listen(env.PORT, () => {
-    console.log(`✅ Server running on http://localhost:${env.PORT}`);
+  console.log(`✅ Server running on http://localhost:${env.PORT}`);
 });
