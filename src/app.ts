@@ -1,3 +1,4 @@
+import "dotenv/config";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -12,7 +13,7 @@ import passport from "./config/passport.js";
 
 import authRoutes from "./routes/auth.routes.js";
 
-// import inventoryRoutes from "./routes/inventory.routes"
+import inventoryRoutes from "./routes/inventory.routes";
 // import itemRoutes      from "./routes/item.routes"
 // import commentRoutes   from "./routes/comment.routes"
 // import searchRoutes    from "./routes/search.routes"
@@ -31,7 +32,7 @@ app.use(morgan("dev"));
 app.use(
   cors({
     origin: env.CLIENT_URL,
-    credentials: true, 
+    credentials: true,
   }),
 );
 app.use(express.json());
@@ -44,7 +45,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 7 * 24 * 60 * 60 * 1000, 
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     },
   }),
 );
@@ -53,7 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/auth", authRoutes);
-// app.use("/api/inventories", inventoryRoutes)
+app.use("/api/inventories", inventoryRoutes);
 // app.use("/api/items",       itemRoutes)
 // app.use("/api/comments",    commentRoutes)
 // app.use("/api/search",      searchRoutes)

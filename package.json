@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +22,9 @@
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.17",
     "@types/passport-local": "^1.0.38",
+    "prisma": "^6.19.2",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
@@ -28,6 +32,7 @@
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.9.0",
     "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "helmet": "^8.1.0",
@@ -37,7 +42,6 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "prisma": "^6.19.2",
     "socket.io": "^4.8.3",
     "zod": "^4.3.6"
   }
