@@ -1,9 +1,9 @@
 import crypto from "crypto";
 import bcrypt from "bcryptjs";
 
-import { env } from "../config/env.js";
-import prisma from "../config/database.js";
-import { mailService } from "./mail.service.js";
+import { env } from "../config/env";
+import prisma from "../config/database";
+import { mailService } from "./mail.service";
 
 export const authService = {
   async register(email: string, password: string, name: string) {

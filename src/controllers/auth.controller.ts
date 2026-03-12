@@ -1,8 +1,8 @@
 import passport from "passport";
 import { Request, Response, NextFunction } from "express";
 
-import { env } from "../config/env.js";
-import { authService } from "../services/auth.service.js";
+import { env } from "../config/env";
+import { authService } from "../services/auth.service";
 
 export const authController = {
   getMe(req: Request, res: Response) {

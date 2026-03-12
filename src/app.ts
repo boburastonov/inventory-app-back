@@ -7,18 +7,17 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import session from "express-session";
 
-import "./config/env.js";
-import { env } from "./config/env.js";
-import passport from "./config/passport.js";
-
-import authRoutes from "./routes/auth.routes.js";
+import "./config/env";
+import { env } from "./config/env";
+import passport from "./config/passport";
 
 import inventoryRoutes from "./routes/inventory.routes";
-// import itemRoutes      from "./routes/item.routes"
-// import commentRoutes   from "./routes/comment.routes"
-// import searchRoutes    from "./routes/search.routes"
-// import adminRoutes     from "./routes/admin.routes"
-// import userRoutes      from "./routes/user.routes"
+import commentRoutes from "./routes/comment.routes";
+import searchRoutes from "./routes/search.routes";
+import adminRoutes from "./routes/admin.routes";
+import userRoutes from "./routes/user.routes";
+import itemRoutes from "./routes/item.routes";
+import authRoutes from "./routes/auth.routes";
 
 const app = express();
 const httpServer = createServer(app);
@@ -53,13 +52,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/auth", authRoutes);
 app.use("/api/inventories", inventoryRoutes);
-// app.use("/api/items",       itemRoutes)
-// app.use("/api/comments",    commentRoutes)
-// app.use("/api/search",      searchRoutes)
-// app.use("/api/admin",       adminRoutes)
-// app.use("/api/users",       userRoutes)
+app.use("/api/comments", commentRoutes);
+app.use("/api/search", searchRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/items", itemRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use(
   (

@@ -1,5 +1,5 @@
 import prisma from "../config/database";
-import { customIdService } from "./customId.service.js";
+import { customIdService } from "./customId.service";
 
 export const itemService = {
   async getByInventory(inventoryId: string) {

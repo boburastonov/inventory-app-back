@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import prisma from "../config/database.js";
+import prisma from "../config/database";
 
 export function isAuthenticated(
   req: Request,
