@@ -23,7 +23,8 @@ export const inventoryController = {
 
   async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const inventory = await inventoryService.getById(req.params.inventoryId);
+      const inventoryId: string = req.params.inventoryId as string;
+      const inventory = await inventoryService.getById(inventoryId);
       if (!inventory) return res.status(404).json({ message: "notFound" });
       res.json(inventory);
     } catch (err) {
@@ -47,8 +48,9 @@ export const inventoryController = {
       if (version === undefined) {
         return res.status(400).json({ message: "versionRequired" });
       }
+      const inventoryId: string = req.params.inventoryId as string;
       const inventory = await inventoryService.update(
-        req.params.inventoryId,
+        inventoryId,
         version,
         data,
       );
@@ -66,7 +68,8 @@ export const inventoryController = {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      await inventoryService.delete(req.params.inventoryId);
+      const inventoryId: string = req.params.inventoryId as string;
+      await inventoryService.delete(inventoryId);
       res.status(204).send();
     } catch (err) {
       next(err);
@@ -96,7 +99,8 @@ export const inventoryController = {
   async addAccess(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req.body;
-      await inventoryService.addAccess(req.params.inventoryId, userId);
+      const inventoryId: string = req.params.inventoryId as string;
+      await inventoryService.addAccess(inventoryId, userId);
       res.status(201).json({ message: "accessGranted" });
     } catch (err) {
       next(err);
@@ -105,10 +109,9 @@ export const inventoryController = {
 
   async removeAccess(req: Request, res: Response, next: NextFunction) {
     try {
-      await inventoryService.removeAccess(
-        req.params.inventoryId,
-        req.params.userId,
-      );
+      const inventoryId: string = req.params.inventoryId as string;
+      const userId: string = req.params.userId as string;
+      await inventoryService.removeAccess(inventoryId, userId);
       res.status(204).send();
     } catch (err) {
       next(err);
@@ -117,7 +120,8 @@ export const inventoryController = {
 
   async getStats(req: Request, res: Response, next: NextFunction) {
     try {
-      const stats = await inventoryService.getStats(req.params.inventoryId);
+      const inventoryId: string = req.params.inventoryId as string;
+      const stats = await inventoryService.getStats(inventoryId);
       res.json(stats);
     } catch (err: any) {
       if (err.message === "notFound") {
@@ -139,7 +143,8 @@ export const inventoryController = {
 
   async getByTag(req: Request, res: Response, next: NextFunction) {
     try {
-      const inventories = await inventoryService.getByTag(req.params.tagName);
+      const tagName: string = req.params.tagName as string;
+      const inventories = await inventoryService.getByTag(tagName);
       res.json(inventories);
     } catch (err) {
       next(err);

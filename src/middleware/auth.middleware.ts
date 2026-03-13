@@ -29,7 +29,7 @@ export async function isInventoryOwner(
     if (user?.isAdmin) return next();
 
     const inventory = await prisma.inventory.findUnique({
-      where: { id: inventoryId },
+      where: { id: req.params.inventoryId as string },
       select: { ownerId: true },
     });
 
@@ -55,7 +55,7 @@ export async function hasWriteAccess(
     if (user?.isAdmin) return next();
 
     const inventory = await prisma.inventory.findUnique({
-      where: { id: inventoryId },
+      where: { id: req.params.inventoryId as string },
       select: {
         ownerId: true,
         isPublic: true,
@@ -71,7 +71,7 @@ export async function hasWriteAccess(
     const access = await prisma.inventoryAccess.findUnique({
       where: {
         inventoryId_userId: {
-          inventoryId,
+          inventoryId: req.params.inventoryId as string,
           userId: user?.id,
         },
       },
