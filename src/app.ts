@@ -12,6 +12,7 @@ import { env } from "./config/env";
 import passport from "./config/passport";
 
 import inventoryRoutes from "./routes/inventory.routes";
+import customIdRoutes from "./routes/customId.routes";
 import commentRoutes from "./routes/comment.routes";
 import searchRoutes from "./routes/search.routes";
 import adminRoutes from "./routes/admin.routes";
@@ -52,6 +53,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/api/inventories/:inventoryId/custom-id", customIdRoutes);
 app.use("/api/inventories", inventoryRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/search", searchRoutes);
