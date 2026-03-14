@@ -1,5 +1,4 @@
-// src/services/field.service.ts
-import { FieldType } from "@prisma/client";
+type FieldType = "TEXT_SINGLE" | "TEXT_MULTI" | "NUMBER" | "BOOLEAN" | "LINK";
 
 import prisma from "../config/database";
 
